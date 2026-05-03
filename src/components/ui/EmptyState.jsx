@@ -1,9 +1,23 @@
-export function EmptyState({ icon = "📭", title = "Tidak ada data", desc = "" }) {
+import { motion } from 'framer-motion'
+import { TrendingUp } from 'lucide-react'
+
+export function EmptyState({ icon, title = "Tidak ada data", message = "Mulai dengan menambahkan transaksi pertama Anda" }) {
+  const defaultIcon = icon || <TrendingUp size={48} className="empty-state-icon" />
+  
   return (
-    <div style={{ padding: "48px 24px", textAlign: "center" }}>
-      <div style={{ fontSize: 36, marginBottom: 12 }}>{icon}</div>
-      <p style={{ fontWeight: 600, fontSize: 15, marginBottom: 4 }}>{title}</p>
-      {desc && <p style={{ fontSize: 13, color: "var(--muted)" }}>{desc}</p>}
+    <div className="empty-state">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="empty-state-content"
+      >
+        <div className="empty-state-icon-container">
+          {defaultIcon}
+        </div>
+        <h3 className="empty-state-title">{title}</h3>
+        <p className="empty-state-description">{message}</p>
+      </motion.div>
     </div>
-  );
+  )
 }

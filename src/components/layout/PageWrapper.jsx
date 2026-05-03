@@ -1,23 +1,35 @@
+import { motion } from 'framer-motion'
+
 export function PageWrapper({ children }) {
   return (
-    <div style={{ maxWidth: 960, margin: "0 auto", padding: "36px 24px" }}>
+    <motion.div
+      className="page-wrapper"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+    >
       {children}
-    </div>
-  );
+    </motion.div>
+  )
 }
 
-export function PageHeader({ title, subtitle, action }) {
+export function PageHeader({ title, subtitle, action, actions }) {
   return (
-    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 28 }}>
-      <div>
-        <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 30, fontWeight: 400, lineHeight: 1.1 }}>
-          {title}
+    <div className="page-header">
+      {title && (
+        <h2 className="page-title">{title}
+          {subtitle && <span className="page-subtitle">{subtitle}</span>}
         </h2>
-        {subtitle && (
-          <p style={{ fontSize: 14, color: "var(--muted)", marginTop: 4 }}>{subtitle}</p>
-        )}
-      </div>
-      {action && <div>{action}</div>}
+      )}
+      {(action || actions) && (
+        <div className="page-header-actions">
+          {actions ? (
+            <div className="actions-container">{actions}</div>
+          ) : (
+            <div className="action-container">{action}</div>
+          )}
+        </div>
+      )}
     </div>
-  );
+  )
 }
